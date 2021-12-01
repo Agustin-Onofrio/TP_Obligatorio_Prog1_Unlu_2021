@@ -185,7 +185,7 @@ def cargoCajeros(vector):
 #consulta el numero de cuenta a buscar y valida su tipo y que sea una cuenta existente 
 def consultaCuenta(vector):
     cuenta=input("ingrese el numero de cuenta que desea consultar: ")
-    os.system('cls')
+    limpiar_pantalla()
         
     validodigito(cuenta)
     
@@ -196,7 +196,7 @@ def consultaCuenta(vector):
         cuenta=input()
         cuenta=validodigito(cuenta)
         cuenta=int(cuenta)
-        os.system('cls')
+        limpiar_pantalla()
     
     
     return cuenta
@@ -207,7 +207,7 @@ def validodigito(numero):
             print("su numero de cuenta no debe contener letras")
             print("intente nuevamente o ingrese 0 para salir: ")
             numero=input()
-            os.system('cls')
+            limpiar_pantalla()
         return numero
 
 #Devuelve los datos de la cuenta con pasarle un numero de cuenta valido   
@@ -223,20 +223,18 @@ def buscoCuenta(vector,numero):
         saldo=vector[j].saldo
         estado=vector[j].estado
     
-        if vector[j].estado==True:
-            print(f'numero de cuenta: {numero}')
-            print(nombre," ",apellido)
-            print("Dni: ",dni)
-            print("Tipo de cuenta: ",tipoCuenta)
-            print("$",saldo)
+        
+
             
             
-        else:
-            print(f'numero de cuenta: {numero}')
-            print(nombre," ",apellido)
-            print("Dni: ",dni)
-            print("Tipo de cuenta: ",tipoCuenta)
-            print("$",saldo)
+        
+        print(f'numero de cuenta: {numero}')
+        print(nombre," ",apellido)
+        print("Dni: ",dni)
+        print("Tipo de cuenta: ",tipoCuenta)
+        print("$",saldo)
+            
+        if vector[j].estado==False:
             print("La cuenta se encuentra inactiva") 
         return estado   
 
@@ -278,11 +276,7 @@ def corteDeControl(vcuentas):
             #sumo la cantidad de movimientos de los cajeros
             vMovCajeros[numeroCajero]+=1
             
-            #actualizo saldo de las cuentas
-            if tipoMovimiento==1:
-                vcuentas[cuenta-999].saldo+=monto
-            elif tipoMovimiento==2:
-                vcuentas[cuenta-999].saldo-=monto
+           
             
             
             
@@ -295,7 +289,11 @@ def corteDeControl(vcuentas):
                 cuenta=int(s[0])     # Tomo carrera para cargar comparar con carrera anterior
 
         
-        
+         #actualizo saldo de las cuentas
+            
+        vcuentas[cuenta-999].saldo+=suma
+            
+               
         
         #Muestro el saldo anual de los movimientos
         print(f"El saldo de los movimientos anuales de la cuenta es: {round(suma,2)}")
@@ -346,7 +344,7 @@ def mostrarCajero(vcajeros):
 def alta(vector):
     dni=input("ingrese numero de documento: ")
     dni=validoDni(dni)
-    str(dni)
+    dni=str(dni)
     i=1
     esta=False
     util=vector[0].numeroCuenta
@@ -380,7 +378,8 @@ def alta(vector):
         vector[util+1].dni=dni
         vector[util+1].nombre=input("ingrese nombre: ")
         vector[util+1].apellido=input("ingrese apellido: ")
-        vector[util+1].tipoCuenta=int(input("ingrese tipo de cuenta: "))
+        tipoCuenta=input("ingrese tipo de cuenta")
+        vector[util+1].tipoCuenta=validoTipoCuenta(tipoCuenta)
         vector[util+1].saldo=0.0
         vector[util+1].estado=True
         print("")
@@ -392,7 +391,7 @@ def validoDni(numero):
             print("su numero de Dni no debe contener letras")
             print("intente nuevamente o ingrese 0 para salir: ")
             numero=input()
-            os.system('cls')
+            limpiar_pantalla
         return numero
 
 def validoTipoCuenta(numero):    
@@ -420,7 +419,7 @@ def validoTipoCuenta(numero):
 #valida que la cuenta a dar de baja sea una cuenta existente
 def borrarCuenta(vector):
     cuenta=input("ingrese el numero de cuenta que desea dar de baja: ")
-    os.system('cls')
+    limpiar_pantalla()
         
     validodigito(cuenta)
     
@@ -431,7 +430,7 @@ def borrarCuenta(vector):
         cuenta=input()
         cuenta=validodigito(cuenta)
         cuenta=int(cuenta)
-        os.system('cls')
+        limpiar_pantalla()
     
     
     return cuenta
@@ -449,7 +448,7 @@ def baja(vector):
 #valida que la cuenta a modificar sea una cuenta existente
 def modificarCuenta(vector):
     cuenta=input("ingrese el numero de cuenta que desea modificar: ")
-    os.system('cls')
+    limpiar_pantalla()
         
     validodigito(cuenta)
     
@@ -460,7 +459,7 @@ def modificarCuenta(vector):
         cuenta=input()
         cuenta=validodigito(cuenta)
         cuenta=int(cuenta)
-        os.system('cls')
+        limpiar_pantalla()
     
     
     return cuenta
@@ -488,7 +487,7 @@ def modificarDatos(v):
         v[n-999].apellido=input("ingrese apellido y presione enter para finalizar: ")
     elif op==3:
         dni=input("ingrese DNI y presione enter para finalizar: ")    
-        dni=validoDni()
+        dni=validoDni(dni)
         v[n-999].dni=dni
     elif op==4:
         tipo=input("ingrese tipo de cuenta y presione enter para finalizar: ")    
